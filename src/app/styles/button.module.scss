@@ -1,0 +1,43 @@
+@import './mixin.module.scss';
+.button {
+  all: unset;
+  display: inline-block; /* 버튼의 레이아웃을 위해 선택적으로 추가 */
+  cursor: pointer; /* 마우스 포인터가 가리킬 때 손가락 모양으로 변경 */
+}
+
+.button {
+  border-radius: $size-36;
+  padding: $size-12 $size-16;
+  font-size: $size-16;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR';
+  &__type {
+    &__outlined {
+      &__primary {
+        border: 1px solid #cddafd;
+      }
+      &__black {
+        border: 1px solid #000;
+      }
+    }
+    &__colored {
+      &__primary {
+        background-color: #cddafd;
+      }
+      &__black {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+  &__size {
+    &__small {
+      width: 7rem;
+    }
+    &__large {
+      width: 100%;
+    }
+  }
+}

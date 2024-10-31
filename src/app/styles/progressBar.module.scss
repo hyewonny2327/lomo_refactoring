@@ -1,0 +1,49 @@
+@import './mixin.module.scss';
+.progressBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+.stepBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.label {
+  width: $size-11;
+  height: $size-11;
+  border-radius: 50%;
+
+  &__visited {
+    background-color: black;
+  }
+  &__current {
+    background-color: #97c7eb;
+    border: 1px solid black;
+    width: $size-13;
+    height: $size-13;
+  }
+  &__notVisited {
+    background-color: white;
+    border: 1px solid black;
+  }
+}
+.line {
+  position: absolute; // 위치를 절대적으로 설정
+  height: 1px;
+  width: 90%; // label 원의 크기를 고려하여 width 조정
+  top: 0.4rem; // vertical center
+  left: 50%; // horizontal center
+  transform: translate(-50%, -50%); // 정중앙에 위치시키기
+  background-color: black;
+  z-index: -100;
+}
+.text {
+}
