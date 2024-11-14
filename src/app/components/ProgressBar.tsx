@@ -45,13 +45,16 @@ const ProgressBar = ({ currentId }: progressBarType) => {
   }
   return (
     <div className={styles.progressBar}>
-      {steps.map((item) => (
+      {steps.map((item, index) => (
         <div key={item.id} className={styles.stepBox}>
           <div className={`${styles.label} ${styles[`label__${getLabelClassName(item.id)}`]}`}></div>
           <div className={styles.text}>{item.name}</div>
+          {index < steps.length - 1 && (
+            <div className={`${styles.line} ${item.id < currentId ? styles.line__visited : ''}`}></div>
+          )}
         </div>
       ))}
-      <div className={styles.line}></div>
+      {/* <div className={styles.line}></div> */}
     </div>
   );
 };

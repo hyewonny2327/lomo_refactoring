@@ -24,18 +24,22 @@
 .mainContainer {
   @include mobile-500 {
     width: 100%;
-    margin-top: $size-40;
+    margin-top: $size-32;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: $size-40;
     &__text {
-      font-size: $size-24;
+      font-size: $size-18;
       font-weight: 800;
+      color: $main-text-color;
     }
     &__image {
-      width: 100%;
-      height: 400px;
+      width: 140px;
+      height: 406px;
+    }
+    &slider {
+      width: 80%;
     }
   }
 }

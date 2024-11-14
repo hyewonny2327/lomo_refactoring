@@ -1,49 +1,62 @@
 @import './mixin.module.scss';
+
+/* 진행 바 컨테이너 */
 .progressBar {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 100%; /* 진행 바 전체 너비 */
+  margin: 0 auto;
   position: relative;
 }
+
+/* 각 단계의 컨테이너 */
 .stepBox {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: relative;
 }
 
+/* 각 단계의 원(circle) 스타일 */
 .label {
-  width: $size-11;
-  height: $size-11;
+  width: $size-20;
+  height: $size-20;
   border-radius: 50%;
+  background-color: $disabled-color; /* 기본 색상 (방문하지 않은 단계) */
+  position: relative;
+}
 
-  &__visited {
-    background-color: black;
-  }
-  &__current {
-    background-color: #97c7eb;
-    border: 1px solid black;
-    width: $size-13;
-    height: $size-13;
-  }
-  &__notVisited {
-    background-color: white;
-    border: 1px solid black;
-  }
+/* 방문한 단계 스타일 */
+.label__visited {
+  background-color: $primary-color; /* 방문한 단계: 짙은 회색 */
 }
-.line {
-  position: absolute; // 위치를 절대적으로 설정
-  height: 1px;
-  width: 90%; // label 원의 크기를 고려하여 width 조정
-  top: 0.4rem; // vertical center
-  left: 50%; // horizontal center
-  transform: translate(-50%, -50%); // 정중앙에 위치시키기
-  background-color: black;
-  z-index: -100;
+
+/* 현재 단계 스타일 */
+.label__current {
+  background-color: $primary-color; /* 현재 단계: 민트 그린 */
 }
+
+/* 각 단계 이름 텍스트 스타일 */
 .text {
+  margin-top: $size-8;
+  font-size: $size-12;
+  color: #4d4d4d; /* 텍스트 색상 */
+}
+
+// /* 연결 선 스타일 */
+.line {
+  position: absolute;
+  top: 20%;
+  left: 20px;
+  width: 210%;
+  height: 2px;
+  transform: translate(0, -50%);
+  background-color: $disabled-color;
+  z-index: -1;
+}
+
+/* 방문한 단계까지 연결 선 스타일 */
+.line__visited {
+  background-color: $primary-color; /* 방문한 단계 연결 선 색상 */
 }

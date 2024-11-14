@@ -3,16 +3,11 @@ import Image from 'next/image';
 import styles from '../../../styles/selectPage.module.scss';
 import ProgressBar from '@/app/components/ProgressBar';
 import Button from '@/app/components/Button';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import Slider from '@/app/components/Slider';
 
-interface SelectPageProps {
-  params: {
-    steps: string;
-  };
-}
-
-const SelectPage = ({ params }: SelectPageProps) => {
-  const { steps } = params; // steps 값 가져오기
+const SelectPage = () => {
+  const { steps } = useParams<{ steps: string }>();
   const router = useRouter();
   function handleClickNextButton() {
     const nextStep = Number(steps) + 1;
@@ -43,14 +38,14 @@ const SelectPage = ({ params }: SelectPageProps) => {
           <Image src="/logo.svg" alt="LOMO logo" width={141} height={41} priority></Image>
         </div>
         <div className={styles.mainContainer__slider}>
-          <div>slider</div>
+          <Slider />
         </div>
       </main>
       <footer className={styles.buttonContainer}>
-        <Button type="outlined" size="large" color="black" onClick={handleClickPrevButton}>
+        <Button type="outlined" size="large" color="primary" onClick={handleClickPrevButton}>
           이전
         </Button>
-        <Button type="outlined" size="large" color="black" onClick={handleClickNextButton}>
+        <Button type="colored" size="large" color="primary" onClick={handleClickNextButton}>
           다음
         </Button>
       </footer>

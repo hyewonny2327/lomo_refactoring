@@ -7,6 +7,7 @@
     flex-direction: column;
     align-items: center;
     gap: $size-24;
+    padding: $size-20;
   }
 }
 .textBox {
@@ -15,12 +16,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
+    font-weight: 700;
     font-size: $size-16;
     gap: $size-4;
   }
 }
 .buttonBox {
   display: flex;
-  gap: $size-8;
+  width: 100%;
+  flex-direction: column;
+  gap: $size-24;
 }

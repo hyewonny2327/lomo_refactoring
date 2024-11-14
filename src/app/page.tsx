@@ -17,10 +17,10 @@ export default function Home() {
         <div>체형분석을 통해 당신만의 특별함을 찾아보세요</div>
       </div>
       <div className={styles.buttonBox}>
-        <Button type="outlined" size="small" color="primary">
+        <Button type="outlined" size="large" color="primary">
           로그인
         </Button>
-        <Button type="colored" size="small" color="primary" onClick={handleClickStartButton}>
+        <Button type="colored" size="large" color="primary" onClick={handleClickStartButton}>
           시작하기
         </Button>
       </div>

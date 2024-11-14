@@ -6,8 +6,8 @@
 }
 
 .button {
-  border-radius: $size-36;
-  padding: $size-12 $size-16;
+  border-radius: $size-12;
+  padding: $size-16 $size-24;
   font-size: $size-16;
   font-weight: 700;
   text-align: center;
@@ -16,25 +16,27 @@
   &__type {
     &__outlined {
       &__primary {
-        border: 1px solid #cddafd;
+        border: 1px solid $primary-color;
+        color: $primary-color;
       }
       &__black {
-        border: 1px solid #000;
+        border: 1px solid $main-text-color;
       }
     }
     &__colored {
       &__primary {
-        background-color: #cddafd;
+        background-color: $primary-color;
+        color: #fff;
       }
       &__black {
-        background-color: #000;
+        background-color: $main-text-color;
         color: #fff;
       }
     }
   }
   &__size {
     &__small {
-      width: 7rem;
+      width: 10rem;
     }
     &__large {
       width: 100%;
