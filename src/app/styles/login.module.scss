@@ -1,0 +1,80 @@
+@import './mixin.module.scss';
+.contentContainer {
+  @include mobile-500 {
+    width: 402px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $size-24;
+    padding: $size-20;
+    position: relative;
+  }
+}
+.textBox {
+  @include mobile-500 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    font-weight: 800;
+    font-size: $size-24;
+  }
+}
+.inputBox {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: $size-16;
+}
+
+.socialLogin {
+  &__box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: $size-16;
+  }
+  &__text {
+    color: $sub-text-color;
+    font-size: $size-12;
+  }
+  &__buttonBox {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: $size-12;
+  }
+  &__button {
+    width: $size-40;
+    height: $size-40;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-text-color;
+    // &__kakao {
+    //   background-color: #fee500;
+    // }
+    // &__naver {
+    //   background-color: #03d765;
+    // }
+    // &__google {
+    //   background-color: #ed3241;
+    // }
+  }
+}
+
+.startButtonBox {
+  @include mobile-500 {
+    width: 90%;
+    display: flex;
+    gap: $size-8;
+    position: fixed;
+    bottom: $size-20;
+    padding: 0 $size-20;
+  }
+}
