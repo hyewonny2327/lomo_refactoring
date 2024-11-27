@@ -28,6 +28,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+
     gap: $size-40;
     &__text {
       font-size: $size-18;
@@ -35,8 +36,10 @@
       color: $main-text-color;
     }
     &__image {
+      position: relative;
       width: 140px;
       height: 406px;
+      margin: 0 auto;
     }
     &slider {
       width: 80%;

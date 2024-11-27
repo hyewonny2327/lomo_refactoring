@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import NaverProvider from 'next-auth/providers/naver';
 import KakaoProvider from 'next-auth/providers/kakao';
 // import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@/app/lib/prisma';
+import prisma from '@/app/db';
 const handler = NextAuth({
   session: {
     strategy: 'jwt' as const,

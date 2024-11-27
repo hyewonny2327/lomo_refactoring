@@ -17,10 +17,10 @@ export async function getS3FileUrls(bucketName: string) {
     const response = await s3.send(command);
 
     const fileData = response.Contents?.map((item: _Object) => {
+      const id = item.Key?.split('/').pop()?.split('.').shift() ?? ''; // undefined인 경우 빈 문자열로 대체
       const fileUrl = `https://${bucketName}.s3.ap-southeast-2.amazonaws.com/${item.Key}`;
-      const id = item.Key?.split('/').pop()?.split('.').shift();
       return { id, url: fileUrl };
-    });
+    }).filter((item) => item.id !== ''); // id가 빈 문자열인 항목 필터링
 
     return fileData || [];
   } catch (err) {
