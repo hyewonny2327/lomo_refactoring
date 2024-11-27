@@ -5,6 +5,8 @@ import ProgressBar from '@/app/components/ProgressBar';
 import Button from '@/app/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import Slider from '@/app/components/Slider';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const SelectPage = () => {
   const { steps } = useParams<{ steps: string }>();
