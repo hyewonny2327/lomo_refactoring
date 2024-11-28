@@ -1,30 +1,30 @@
-@import './mixin.module.scss';
+@use './mixin.module.scss';
 .contentContainer {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 402px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $size-24;
-    padding: $size-20;
+    gap: mixin.$size-24;
+    padding: mixin.$size-20;
     position: relative;
   }
 }
 .textBox {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 100%;
     display: flex;
     flex-direction: column;
 
     font-weight: 800;
-    font-size: $size-24;
+    font-size: mixin.$size-24;
   }
 }
 .inputBox {
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: $size-16;
+  gap: mixin.$size-16;
 }
 
 .socialLogin {
@@ -34,11 +34,11 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: $size-16;
+    gap: mixin.$size-16;
   }
   &__text {
-    color: $sub-text-color;
-    font-size: $size-12;
+    color: mixin.$sub-text-color;
+    font-size: mixin.$size-12;
   }
   &__buttonBox {
     display: flex;
@@ -46,16 +46,16 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-    gap: $size-12;
+    gap: mixin.$size-12;
   }
   &__button {
-    width: $size-40;
-    height: $size-40;
+    width: mixin.$size-40;
+    height: mixin.$size-40;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $main-text-color;
+    background-color: mixin.$main-text-color;
     // &__kakao {
     //   background-color: #fee500;
     // }
@@ -69,12 +69,12 @@
 }
 
 .startButtonBox {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 90%;
     display: flex;
-    gap: $size-8;
+    gap: mixin.$size-8;
     position: fixed;
-    bottom: $size-20;
-    padding: 0 $size-20;
+    bottom: mixin.$size-20;
+    padding: 0 mixin.$size-20;
   }
 }
