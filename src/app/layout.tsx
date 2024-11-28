@@ -19,7 +19,7 @@ const geistMono = localFont({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // 서버에서 초기화 함수 실행
   try {
-    await saveS3DataToDatabase();
+    //await saveS3DataToDatabase();
     console.log('S3 data initialized on server.');
   } catch (error: unknown) {
     console.error('Error initializing S3 data:', error);
