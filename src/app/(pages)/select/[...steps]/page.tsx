@@ -13,7 +13,7 @@ import useAvatarStore from '@/app/stores/store';
 dotenv.config();
 
 const SelectPage = () => {
-  const { step, avatarIds, goNextStep, goPrevStep, updateAvatarState } = useAvatarStore();
+  const { step, avatarIds, goNextStep, goPrevStep, updateAvatarState, history } = useAvatarStore();
   const router = useRouter();
   const [sliderValue, setSliderValue] = useState<number>(0); // 슬라이더 값을 상태로 관리
   const [avatarImages, setAvatarImages] = useState<{ id: string; url: string }[]>([]);
@@ -26,31 +26,27 @@ const SelectPage = () => {
     { id: 5, value: '허리', description: '허리를 선택하세요' },
   ];
   useEffect(() => {
+    console.log('step', step, 'ids', avatarIds, 'history', history);
     fetchAvatars(avatarIds)
       .then((avatars) => setAvatarImages(avatars))
       .catch((error) => console.error(error));
   }, [avatarIds]);
 
   useEffect(() => {
-    if (step === 5) {
-      router.push('/select/result');
-    } else {
+    if (step <= 5) {
       router.push(`/select/${step}`);
     }
-  }, [router, step]);
+  }, [step, router]);
   function handleClickNextButton() {
-    //현재 slider value 저장
     updateAvatarState(step, sliderValue);
     //step up
     if (step < 5) {
       goNextStep();
     } else if (step === 5) {
-      router.push('/select/result');
+      router.push(`/select/result`);
     }
   }
   function handleClickPrevButton() {
-    updateAvatarState(step - 1, sliderValue);
-
     goPrevStep();
   }
 

@@ -4,6 +4,7 @@ interface AvatarStore {
   step: number; // 현재 단계
   avatarIds: string[]; // 아바타 ID 목록
   finalAvatarId: number[]; // 최종 선택된 아바타 ID
+  history: string[][]; // 각 단계의 avatarIds 기록
   goNextStep: () => void; // 다음 단계로 이동
   goPrevStep: () => void; // 이전 단계로 이동
   setAvatarIds: (ids: string[]) => void; // 아바타 ID 설정
@@ -14,15 +15,37 @@ const useAvatarStore = create<AvatarStore>((set) => ({
   step: 0,
   avatarIds: ['10111', '20111', '30111', '40111', '50111'],
   finalAvatarId: [1, 0, 1, 1, 1],
-  goNextStep: () => set((state) => ({ step: state.step + 1 })),
+  history: [[], ['10111', '20111', '30111', '40111', '50111']], // 초기 상태 기록 , 0번자리는 비워둔다
+  goNextStep: () =>
+    set((state) => {
+      const { step, avatarIds, history } = state;
+      if (step === 0) {
+        return { step: step + 1 };
+      }
+
+      return {
+        step: step + 1,
+        history: [...history.slice(0, step + 1), avatarIds], // 현재 상태를 기록
+      };
+    }),
+
   goPrevStep: () =>
-    set((state) => ({
-      step: state.step > 0 ? state.step - 1 : 0, // step이 0보다 작아지지 않도록
-    })),
+    set((state) => {
+      const { step, history } = state;
+      if (step <= 1) {
+        return state;
+      }
+      const prevStep = step - 1;
+      return {
+        step: prevStep,
+        avatarIds: history[prevStep], // 이전 단계의 avatarIds를 반환
+      };
+    }),
   //서버에서 받아올 아바타 이미지 리스트
   setAvatarIds: (ids: string[]) =>
-    set(() => ({
+    set((state) => ({
       avatarIds: [...ids],
+      history: [...state.history.slice(0, state.step + 1), ids], // 상태 기록 갱신
     })),
   //사용자가 다음/이전 버튼을 클릭할 경우 실행
   updateAvatarState: (index, value) =>
@@ -44,7 +67,7 @@ const useAvatarStore = create<AvatarStore>((set) => ({
           const suffix = updatedFinalAvatarId.slice(2).join('');
           return Array(5)
             .fill('')
-            .map((_, idx) => `${prefix}${idx}${suffix}`);
+            .map((_, idx) => `${prefix}${idx > 1 ? 1 : idx}${suffix}`);
         } else if (step >= 2) {
           // Step >= 2: 현재 step에 해당하는 부분만 업데이트
           return avatarIds.map(
