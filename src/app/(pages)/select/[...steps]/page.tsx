@@ -13,7 +13,7 @@ import useAvatarStore from '@/app/stores/store';
 dotenv.config();
 
 const SelectPage = () => {
-  const { step, avatarIds, goNextStep, goPrevStep, setFinalAvatarId } = useAvatarStore();
+  const { step, avatarIds, goNextStep, goPrevStep, updateAvatarState } = useAvatarStore();
   const router = useRouter();
   const [sliderValue, setSliderValue] = useState<number>(0); // 슬라이더 값을 상태로 관리
   const [avatarImages, setAvatarImages] = useState<{ id: string; url: string }[]>([]);
@@ -40,7 +40,7 @@ const SelectPage = () => {
   }, [router, step]);
   function handleClickNextButton() {
     //현재 slider value 저장
-    setFinalAvatarId(step, sliderValue);
+    updateAvatarState(step, sliderValue);
     //step up
     if (step < 5) {
       goNextStep();
@@ -49,7 +49,7 @@ const SelectPage = () => {
     }
   }
   function handleClickPrevButton() {
-    setFinalAvatarId(step - 1, sliderValue);
+    updateAvatarState(step - 1, sliderValue);
 
     goPrevStep();
   }
