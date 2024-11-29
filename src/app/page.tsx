@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const router = useRouter();
   function handleClickStartButton() {
-    router.push('/select');
+    router.push('/select/0');
   }
   function handleClickLoginButton() {
     router.push('/login');

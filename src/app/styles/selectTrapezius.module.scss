@@ -1,0 +1,25 @@
+@use './mixin.module.scss';
+.selectTrapezius {
+  &__imageContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: mixin.$size-40;
+  }
+
+  &__image {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 50%;
+    box-sizing: border-box; // 크기 변동 방지
+    &:hover {
+      background-color: mixin.$territory-color;
+      transform: scale(1.1); // 크기 변화를 더 부드럽게 표현 가능
+    }
+  }
+  &__text {
+    font-size: mixin.$size-32;
+  }
+}

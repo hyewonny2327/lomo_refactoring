@@ -23,7 +23,7 @@ const LoginPage = () => {
     routeToSelectPage();
   }
   function routeToSelectPage() {
-    router.push('/select');
+    router.push('/select/0');
   }
   return (
     <div className={styles.contentContainer}>

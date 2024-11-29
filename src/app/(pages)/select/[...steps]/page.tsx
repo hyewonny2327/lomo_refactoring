@@ -10,10 +10,11 @@ import { useEffect, useState } from 'react';
 import { fetchAvatars } from '@/app/utils/api/fetchAvatarImages';
 import SelectGender from '@/app/components/SelectGender';
 import useAvatarStore from '@/app/stores/store';
+import SelectTrapezius from '@/app/components/SelectTrapezius';
 dotenv.config();
 
 const SelectPage = () => {
-  const { step, avatarIds, goNextStep, goPrevStep, updateAvatarState, history } = useAvatarStore();
+  const { step, avatarIds, goNextStep, goPrevStep, updateAvatarState } = useAvatarStore();
   const router = useRouter();
   const [sliderValue, setSliderValue] = useState<number>(0); // 슬라이더 값을 상태로 관리
   const [avatarImages, setAvatarImages] = useState<{ id: string; url: string }[]>([]);
@@ -26,7 +27,6 @@ const SelectPage = () => {
     { id: 5, value: '허리', description: '허리를 선택하세요' },
   ];
   useEffect(() => {
-    console.log('step', step, 'ids', avatarIds, 'history', history);
     fetchAvatars(avatarIds)
       .then((avatars) => setAvatarImages(avatars))
       .catch((error) => console.error(error));
@@ -76,7 +76,12 @@ const SelectPage = () => {
           )}
         </div>
         <div className={styles.mainContainer__slider}>
-          <Slider value={sliderValue} setValue={setSliderValue} />
+          {step > 0 &&
+            (stepInfo[step].value === '승모근' ? (
+              <SelectTrapezius setValue={setSliderValue} />
+            ) : (
+              <Slider value={sliderValue} setValue={setSliderValue} />
+            ))}
         </div>
       </main>
       <footer className={styles.buttonContainer}>
