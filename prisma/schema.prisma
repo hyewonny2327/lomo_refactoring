@@ -61,3 +61,38 @@ model Avatar {
   id   String @id
   url  String
 }
+
+model BodyType {
+  id             Int              @id @default(autoincrement())
+  type           String           // "노는게 젤 좋아"와 같은 타입
+  summary        String?          // 요약 정보
+  stylingTips    StylingTip?    @relation(fields: [stylingTipId], references: [id])
+  stylingTipId   Int?
+  avatarNumbers  AvatarNumber[]   // AvatarNumber와의 1:N 관계
+
+}
+
+model StylingTip {
+  id          Int        @id @default(autoincrement())
+  description String
+  tips        Tip[]
+
+  BodyType BodyType[]
+}
+
+model Tip {
+  id             Int              @id @default(autoincrement())
+  category       String           // "자켓", "티셔츠" 등 카테고리
+  description    String           // 카테고리에 대한 구체적인 설명
+  stylingTipId   Int              // StylingTip와의 관계
+  stylingTip     StylingTip       @relation(fields: [stylingTipId], references: [id])
+}
+
+model AvatarNumber {
+  id             Int              @id @default(autoincrement())
+  name           String           // "나무늘보", "펭귄" 등 이름
+  numbers        Int[]            // 숫자 배열
+  bodyTypeId     Int              // BodyType와의 관계
+  bodyType       BodyType         @relation(fields: [bodyTypeId], references: [id])
+}
+
