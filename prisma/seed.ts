@@ -58,68 +58,69 @@ async function readJSONFile(filePath: string) {
 // }
 async function seedBodyType() {
   const bodyTypeData: BodyType[] = await readJSONFile('prisma/bodyType.json');
-
-  await Promise.all(
-    bodyTypeData.map((bodyType) =>
-      prisma.bodyType.create({
-        data: {
-          type: bodyType.type,
-          summary: null, // summary는 이후 업데이트
-          avatarNumbers: {
-            create: bodyType.avatarNumbers.map((avatar) => ({
-              name: avatar.name,
-              numbers: avatar.numbers,
-            })),
+  for (const bodyType of bodyTypeData) {
+    const createdBodyType = await prisma.bodyType.create({
+      data: {
+        type: bodyType.type,
+      },
+    });
+    await Promise.all(
+      bodyType.avatarNumbers.map((avatar) =>
+        prisma.avatarNumber.create({
+          data: {
+            name: avatar.name,
+            numbers: avatar.numbers,
+            bodyTypeId: createdBodyType.id, // BodyType과 연결
           },
-        },
-      })
-    )
-  );
+        })
+      )
+    );
+  }
 
   console.log('BodyType array seeded!');
 }
 
-async function seedTextBlock() {
-  const textBlockData: TextBlock[] = await readJSONFile('prisma/textBlock.json');
+async function seedResultText() {
+  const resultTextData: TextBlock[] = await readJSONFile('prisma/textBlock.json');
 
-  await Promise.all(
-    textBlockData.map(async (textBlock) => {
-      const existingBodyType = await prisma.bodyType.findUnique({
-        where: { type: textBlock.type },
-      });
-
-      if (!existingBodyType) {
-        console.error(`BodyType with type "${textBlock.type}" not found`);
-        return;
-      }
-
-      await prisma.bodyType.update({
-        where: { id: existingBodyType.id },
+  for (const resultText of resultTextData) {
+    const createdResultText = await prisma.resultText.create({
+      data: {
+        type: resultText.type,
+        summary: resultText.summary,
+      },
+    });
+    if (resultText.stylingTips) {
+      const createdStylingTip = await prisma.stylingTip.create({
         data: {
-          summary: textBlock.summary,
-          stylingTips: {
-            create: {
-              description: textBlock.stylingTips.description,
-              tips: {
-                create: textBlock.stylingTips.tips.map((tip) => ({
-                  category: tip.category,
-                  description: tip.description,
-                })),
-              },
-            },
+          description: resultText.stylingTips.description,
+          resultText: {
+            connect: { id: createdResultText.id }, // StylingTip과 ResultText 연결
           },
         },
       });
-    })
-  );
 
-  console.log('TextBlock array seeded!');
+      await Promise.all(
+        resultText.stylingTips.tips.map((tip) =>
+          prisma.tip.create({
+            data: {
+              category: tip.category,
+              description: tip.description,
+              stylingTipId: createdStylingTip.id, // Tip과 StylingTip 연결
+            },
+          })
+        )
+      );
+    }
+  }
+
+  console.log('ResultText array seeded!');
 }
 
 async function main() {
   // await seedUsers();
   await seedBodyType();
-  await seedTextBlock();
+  await seedResultText();
 
   // seedRooms()
 }
