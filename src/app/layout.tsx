@@ -1,7 +1,6 @@
 import localFont from 'next/font/local';
 import './globals.css';
 import styles from './styles/global.module.scss';
-import { saveS3DataToDatabase } from './utils/save-s3-image-to-db';
 import Providers from './Providers';
 
 const geistSans = localFont({

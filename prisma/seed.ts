@@ -41,21 +41,21 @@ async function readJSONFile(filePath: string) {
   }
 }
 
-async function seedUsers() {
-  const userData = Array.from({ length: 1 }).map(() => ({
-    email: 'dummy@email.com',
-    password: '0000',
-  }));
+// async function seedUsers() {
+//   const userData = Array.from({ length: 1 }).map(() => ({
+//     email: 'dummy@email.com',
+//     password: '0000',
+//   }));
 
-  try {
-    if (userData.length > 0) {
-      await prisma.user.createMany({ data: userData });
-      console.log('Users seeded successfully!');
-    }
-  } catch (error) {
-    console.error('Error seeding users:', error);
-  }
-}
+//   try {
+//     if (userData.length > 0) {
+//       await prisma.user.createMany({ data: userData });
+//       console.log('Users seeded successfully!');
+//     }
+//   } catch (error) {
+//     console.error('Error seeding users:', error);
+//   }
+// }
 async function seedBodyType() {
   const bodyTypeData: BodyType[] = await readJSONFile('prisma/bodyType.json');
 
