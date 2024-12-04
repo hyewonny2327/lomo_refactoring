@@ -61,3 +61,40 @@ model Avatar {
   id   String @id
   url  String
 }
+
+model BodyType {
+  id            Int             @id @default(autoincrement())
+  type          String          @unique
+  avatarNumbers AvatarNumber[]  // 1:N 관계
+}
+
+model AvatarNumber {
+  id          Int      @id @default(autoincrement())
+  name        String   // 나무늘보, 펭귄 등 이름
+  numbers     Int[]    // 숫자 배열
+  bodyTypeId  Int      // BodyType와 연결
+  bodyType    BodyType @relation(fields: [bodyTypeId], references: [id])
+}
+
+model ResultText {
+  id           Int          @id @default(autoincrement())
+  type         String       @unique
+  summary      String       // 요약 정보
+  stylingTips  StylingTip?  @relation(fields: [stylingTipId], references: [id])
+  stylingTipId Int?
+}
+
+model StylingTip {
+  id          Int        @id @default(autoincrement())
+  description String
+  tips        Tip[]      // 여러 개의 Tip과 연결
+  resultText  ResultText[]
+}
+
+model Tip {
+  id             Int          @id @default(autoincrement())
+  category       String       // 예: 자켓, 티셔츠
+  description    String       // 설명
+  stylingTipId   Int          // StylingTip과 연결
+  stylingTip     StylingTip   @relation(fields: [stylingTipId], references: [id])
+}
