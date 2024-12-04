@@ -1,9 +1,9 @@
-@import './mixin.module.scss';
+@use './mixin.module.scss';
 
 .contentContainer {
-  @include mobile-500 {
-    @include contentContainer-mobile500;
-    padding: $size-20;
+  @include mixin.mobile-500 {
+    @include mixin.contentContainer-mobile500;
+    padding: mixin.$size-20;
     height: 100vh;
     position: relative;
     box-sizing: border-box;
@@ -11,32 +11,42 @@
 }
 
 .contentHeader {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: $size-20;
+    gap: mixin.$size-20;
   }
 }
 
 .mainContainer {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 100%;
-    margin-top: $size-32;
+    margin-top: mixin.$size-32;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: $size-40;
+
+    gap: mixin.$size-20;
     &__text {
-      font-size: $size-18;
+      font-size: mixin.$size-18;
       font-weight: 800;
-      color: $main-text-color;
+      color: mixin.$main-text-color;
     }
     &__image {
-      width: 140px;
+      // width: 140px;
       height: 406px;
+      // margin: 0 auto;
+      &__avatarImage {
+        position: relative;
+        width: 140px;
+        height: 100%;
+        margin: 0 auto;
+        object-fit: none;
+        object-position: center;
+      }
     }
     &slider {
       width: 80%;
@@ -44,12 +54,12 @@
   }
 }
 .buttonContainer {
-  @include mobile-500 {
+  @include mixin.mobile-500 {
     width: 90%;
     display: flex;
-    gap: $size-8;
+    gap: mixin.$size-8;
     position: fixed;
-    bottom: $size-20;
-    padding: 0 $size-20;
+    bottom: mixin.$size-20;
+    padding: 0 mixin.$size-20;
   }
 }

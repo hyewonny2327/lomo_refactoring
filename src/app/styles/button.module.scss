@@ -1,4 +1,4 @@
-@import './mixin.module.scss';
+@use './mixin.module.scss';
 .button {
   all: unset;
   display: inline-block; /* 버튼의 레이아웃을 위해 선택적으로 추가 */
@@ -6,9 +6,9 @@
 }
 
 .button {
-  border-radius: $size-12;
-  padding: $size-16 $size-24;
-  font-size: $size-16;
+  border-radius: mixin.$size-12;
+  padding: mixin.$size-16 mixin.$size-24;
+  font-size: mixin.$size-16;
   font-weight: 700;
   text-align: center;
   box-sizing: border-box;
@@ -16,20 +16,20 @@
   &__type {
     &__outlined {
       &__primary {
-        border: 1px solid $primary-color;
-        color: $primary-color;
+        border: 1px solid mixin.$primary-color;
+        color: mixin.$primary-color;
       }
       &__black {
-        border: 1px solid $main-text-color;
+        border: 1px solid mixin.$main-text-color;
       }
     }
     &__colored {
       &__primary {
-        background-color: $primary-color;
+        background-color: mixin.$primary-color;
         color: #fff;
       }
       &__black {
-        background-color: $main-text-color;
+        background-color: mixin.$main-text-color;
         color: #fff;
       }
     }
