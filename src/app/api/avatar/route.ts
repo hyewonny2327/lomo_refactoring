@@ -15,7 +15,32 @@ export async function GET(req: Request) {
     console.log('Received IDs:', ids);
 
     // 데이터베이스에서 ID로 데이터 가져오기
-    const avatars = await getAvatarImagesById(ids);
+    const avatars = await (async function fetchAvatars(ids: string[]) {
+      console.log('Querying for IDs:', ids);
+
+      try {
+        // Prisma 쿼리: ID 배열에 해당하는 데이터를 조회
+        const avatars = await prisma.avatar.findMany({
+          where: {
+            id: {
+              in: ids,
+            },
+          },
+          select: {
+            id: true,
+            url: true,
+          },
+        });
+
+        console.log('Fetched avatars:', avatars);
+        return avatars; // 배열 형태로 반환
+      } catch (error) {
+        console.error('Error fetching avatar images by ID:', error);
+        throw new Error('Failed to fetch avatar images.');
+      } finally {
+        await prisma.$disconnect(); // Prisma 클라이언트 연결 종료
+      }
+    })(ids); // 즉시 실행 함수
 
     if (!avatars || avatars.length === 0) {
       return new Response(JSON.stringify({ error: 'No avatars found for the provided IDs' }), { status: 404 });
@@ -29,31 +54,5 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error('Error in GET handler:', error);
     return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
-  }
-}
-export async function getAvatarImagesById(ids: string[]) {
-  try {
-    console.log('Querying for IDs:', ids);
-
-    // Prisma 쿼리: ID 배열에 해당하는 데이터를 조회
-    const avatars = await prisma.avatar.findMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-      select: {
-        id: true,
-        url: true,
-      },
-    });
-
-    console.log('Fetched avatars:', avatars);
-    return avatars; // 배열 형태로 반환
-  } catch (error) {
-    console.error('Error fetching avatar images by ID:', error);
-    throw new Error('Failed to fetch avatar images.');
-  } finally {
-    await prisma.$disconnect(); // Prisma 클라이언트 연결 종료
   }
 }
