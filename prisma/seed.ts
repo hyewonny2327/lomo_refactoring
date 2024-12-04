@@ -58,11 +58,13 @@ async function seedUsers() {
 }
 async function seedBodyType() {
   const bodyTypeData: BodyType[] = await readJSONFile('prisma/bodyType.json');
+
   await Promise.all(
     bodyTypeData.map((bodyType) =>
       prisma.bodyType.create({
         data: {
           type: bodyType.type,
+          summary: null, // summary는 이후 업데이트
           avatarNumbers: {
             create: bodyType.avatarNumbers.map((avatar) => ({
               name: avatar.name,
@@ -79,17 +81,27 @@ async function seedBodyType() {
 
 async function seedTextBlock() {
   const textBlockData: TextBlock[] = await readJSONFile('prisma/textBlock.json');
+
   await Promise.all(
-    textBlockData.map((textBlock: TextBlock) =>
-      prisma.bodyType.create({
+    textBlockData.map(async (textBlock) => {
+      const existingBodyType = await prisma.bodyType.findUnique({
+        where: { type: textBlock.type },
+      });
+
+      if (!existingBodyType) {
+        console.error(`BodyType with type "${textBlock.type}" not found`);
+        return;
+      }
+
+      await prisma.bodyType.update({
+        where: { id: existingBodyType.id },
         data: {
-          type: textBlock.type,
           summary: textBlock.summary,
           stylingTips: {
             create: {
               description: textBlock.stylingTips.description,
               tips: {
-                create: textBlock.stylingTips.tips.map((tip: tip) => ({
+                create: textBlock.stylingTips.tips.map((tip) => ({
                   category: tip.category,
                   description: tip.description,
                 })),
@@ -97,8 +109,8 @@ async function seedTextBlock() {
             },
           },
         },
-      })
-    )
+      });
+    })
   );
 
   console.log('TextBlock array seeded!');

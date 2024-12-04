@@ -64,7 +64,7 @@ model Avatar {
 
 model BodyType {
   id             Int              @id @default(autoincrement())
-  type           String           // "노는게 젤 좋아"와 같은 타입
+  type          String           @unique // type을 고유 키로 설정
   summary        String?          // 요약 정보
   stylingTips    StylingTip?    @relation(fields: [stylingTipId], references: [id])
   stylingTipId   Int?
