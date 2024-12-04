@@ -1,6 +1,6 @@
 // import { fakerKO as faker } from '@faker-js/faker';
-import { prisma } from '../src/app/lib/prisma';
 
+import prisma from '@/app/db';
 // type UserType = {
 //   id: string;
 //   email?: string | null;
