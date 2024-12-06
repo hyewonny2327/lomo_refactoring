@@ -1,4 +1,6 @@
-export async function fetchResults(resultNumber: number) {
+import { ResultType } from '@/app/types/types';
+
+export async function fetchResults(resultNumber: number): Promise<ResultType> {
   try {
     //result number 전달
     const response = await fetch(`/api/result?resultNumber=${resultNumber}`, {

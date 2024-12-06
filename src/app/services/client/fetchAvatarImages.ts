@@ -2,7 +2,7 @@ export async function fetchAvatars(ids: string[]) {
   try {
     // ids를 쿼리 파라미터로 전달
     const query = ids.join(',');
-    const response = await fetch(`/api/avatar?ids=${query}`, {
+    const response = await fetch(`/api/avatars?ids=${query}`, {
       method: 'GET',
     });
 

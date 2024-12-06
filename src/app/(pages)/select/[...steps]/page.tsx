@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Slider from '@/app/components/Slider';
 import * as dotenv from 'dotenv';
 import { useEffect, useState } from 'react';
-import { fetchAvatars } from '@/app/utils/api/fetchAvatarImages';
+import { fetchAvatars } from '@/app/services/client/fetchAvatarImages';
 import SelectGender from '@/app/components/SelectGender';
 import useAvatarStore from '@/app/stores/store';
 import SelectTrapezius from '@/app/components/SelectTrapezius';
@@ -68,10 +68,17 @@ const SelectPage = () => {
               <Image
                 src={avatarImages[sliderValue].url}
                 alt="LOMO logo"
+                layout="responsive"
+                width={16}
+                height={9}
+              ></Image>
+              {/* <Image
+                src={avatarImages[sliderValue].url}
+                alt="LOMO logo"
                 fill
                 sizes="140px"
                 style={{ objectFit: 'none' }}
-              ></Image>
+              ></Image> */}
             </div>
           )}
         </div>
