@@ -7,31 +7,16 @@ import { fetchAvatarImageById } from '@/app/services/client/fetchAvatarImageById
 import styles from '../../../styles/resultPage.module.scss';
 import Image from 'next/image';
 import Button from '@/app/components/Button';
+import { useRouter } from 'next/navigation';
 const ResultPage = () => {
-  const { finalAvatarId } = useAvatarStore();
+  const { finalAvatarId, resetStore } = useAvatarStore();
   const resultNumber = Number(finalAvatarId.join(''));
   const [upperTypeData, setUpperTypeData] = useState<TextBlock>();
   const [lowerTypeData, setLowerTypeData] = useState<TextBlock>();
   const [avatarInfo, setAvatarInfo] = useState({ upperType: '', lowerType: '' });
   const [avatarImage, setAvatarImage] = useState({ id: '', url: '' });
-  async function fetchResultData() {
-    try {
-      const result = await fetchResults(resultNumber);
-      console.log('result', result);
-      setResultData(result);
-    } catch (error) {
-      console.error('results 를 가져오지 못했습니다', error);
-    }
-  }
-
-  async function fetchAvatarImage() {
-    try {
-      const avatarImage = await fetchAvatarImageById(resultNumber.toString());
-      setAvatarImage(avatarImage);
-    } catch (error) {
-      console.error('avatar image 를 가져오지 못했습니다', error);
-    }
-  }
+  // const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   function setResultData(result: ResultType) {
     //avatarInfo 저장
@@ -44,9 +29,44 @@ const ResultPage = () => {
   }
 
   useEffect(() => {
+    //결과 이미지, 텍스트 가져오기
+
+    async function fetchResultData() {
+      try {
+        const result = await fetchResults(resultNumber);
+        console.log('result', result);
+        setResultData(result);
+      } catch (error) {
+        console.error('results 를 가져오지 못했습니다', error);
+      }
+    }
+
+    async function fetchAvatarImage() {
+      try {
+        const avatarImage = await fetchAvatarImageById(resultNumber.toString());
+        setAvatarImage(avatarImage);
+      } catch (error) {
+        console.error('avatar image 를 가져오지 못했습니다', error);
+      }
+    }
     fetchResultData();
     fetchAvatarImage();
-  }, []);
+  }, [resultNumber]);
+
+  // useEffect(() => {
+  //   //아바타 이미지 로딩상태
+  //   if (avatarImage.url === '') {
+  //     setIsLoading(true);
+  //   } else setIsLoading(false);
+  // }, [avatarImage]);
+
+  function handleClickHomeButton() {
+    resetStore();
+    router.push('/');
+  }
+
+  const isLoading = avatarImage.url === '';
+
   return (
     <div className={styles.resultPage}>
       <section className={styles.resultPage__avatarImageContainer}>
@@ -59,11 +79,26 @@ const ResultPage = () => {
           priority
         />
         <header className={styles.resultPage__avatarImageContainer__title}>
-          <div className={styles.resultPage__avatarImageContainer__title__upper}>{avatarInfo.upperType}</div>
-          <div className={styles.resultPage__avatarImageContainer__title__lower}>{avatarInfo.lowerType}</div>
+          {isLoading ? (
+            <div className={styles.resultPage__avatarImageContainer__title__upper}>잠시만 기다려주세요</div>
+          ) : (
+            <>
+              <div className={styles.resultPage__avatarImageContainer__title__upper}>{avatarInfo.upperType}</div>
+              <div className={styles.resultPage__avatarImageContainer__title__lower}>{avatarInfo.lowerType}</div>
+            </>
+          )}
         </header>
         <main>
-          {avatarImage.url !== '' && (
+          {isLoading ? (
+            <Image
+              className={styles.resultPage__avatarImageContainer__image}
+              src={'/loadingAvatar.svg'}
+              alt="Avatar"
+              layout="intrinsic"
+              width={174}
+              height={98}
+            />
+          ) : (
             <Image
               className={styles.resultPage__avatarImageContainer__image}
               src={avatarImage.url}
@@ -103,7 +138,7 @@ const ResultPage = () => {
         <Button type="colored" size="large" color="primary">
           결과 공유하기
         </Button>
-        <Button type="outlined" size="large" color="black">
+        <Button type="outlined" size="large" color="black" onClick={handleClickHomeButton}>
           처음으로 돌아가기
         </Button>
       </section>

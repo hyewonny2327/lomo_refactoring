@@ -30,6 +30,8 @@ const SelectPage = () => {
     fetchAvatars(avatarIds)
       .then((avatars) => setAvatarImages(avatars))
       .catch((error) => console.error(error));
+
+    console.log(avatarIds);
   }, [avatarIds]);
 
   useEffect(() => {
@@ -68,9 +70,9 @@ const SelectPage = () => {
               <Image
                 src={avatarImages[sliderValue].url}
                 alt="LOMO logo"
-                layout="responsive"
-                width={16}
-                height={9}
+                fill
+                sizes="140px"
+                style={{ objectFit: 'none' }}
               ></Image>
               {/* <Image
                 src={avatarImages[sliderValue].url}
