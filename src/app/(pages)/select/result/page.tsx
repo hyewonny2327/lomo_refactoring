@@ -53,13 +53,6 @@ const ResultPage = () => {
     fetchAvatarImage();
   }, [resultNumber]);
 
-  // useEffect(() => {
-  //   //아바타 이미지 로딩상태
-  //   if (avatarImage.url === '') {
-  //     setIsLoading(true);
-  //   } else setIsLoading(false);
-  // }, [avatarImage]);
-
   function handleClickHomeButton() {
     resetStore();
     router.push('/');

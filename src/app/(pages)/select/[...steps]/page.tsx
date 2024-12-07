@@ -18,6 +18,7 @@ const SelectPage = () => {
   const router = useRouter();
   const [sliderValue, setSliderValue] = useState<number>(0); // 슬라이더 값을 상태로 관리
   const [avatarImages, setAvatarImages] = useState<{ id: string; url: string }[]>([]);
+
   const stepInfo = [
     { id: 0, value: '성별', description: '성별을 선택하세요' },
     { id: 1, value: '어깨', description: '어깨너비를 선택하세요' },
@@ -51,7 +52,6 @@ const SelectPage = () => {
   function handleClickPrevButton() {
     goPrevStep();
   }
-
   return (
     <div className={styles.contentContainer}>
       <header className={styles.contentHeader}>
@@ -74,13 +74,6 @@ const SelectPage = () => {
                 sizes="140px"
                 style={{ objectFit: 'none' }}
               ></Image>
-              {/* <Image
-                src={avatarImages[sliderValue].url}
-                alt="LOMO logo"
-                fill
-                sizes="140px"
-                style={{ objectFit: 'none' }}
-              ></Image> */}
             </div>
           )}
         </div>
