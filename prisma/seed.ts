@@ -1,30 +1,9 @@
 // import { fakerKO as faker } from '@faker-js/faker';
 // import prisma from '@/app/db';
+import { BodyType, TextBlock } from '@/app/types/types';
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs/promises';
-interface AvatarNumber {
-  name: string;
-  numbers: number[];
-}
 
-interface BodyType {
-  id: number; // Optional if not used in seeding
-  type: string;
-  avatarNumbers: AvatarNumber[];
-}
-interface TextBlock {
-  type: string;
-  summary: string;
-  stylingTips: stylingTip;
-}
-interface stylingTip {
-  description: string;
-  tips: tip[];
-}
-interface tip {
-  category: string;
-  description: string;
-}
 // type UserType = {
 //   id: string;
 //   email?: string | null;

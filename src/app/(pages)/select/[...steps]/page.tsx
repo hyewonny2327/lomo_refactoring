@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Slider from '@/app/components/Slider';
 import * as dotenv from 'dotenv';
 import { useEffect, useState } from 'react';
-import { fetchAvatars } from '@/app/utils/api/fetchAvatarImages';
+import { fetchAvatars } from '@/app/services/client/fetchAvatarImages';
 import SelectGender from '@/app/components/SelectGender';
 import useAvatarStore from '@/app/stores/store';
 import SelectTrapezius from '@/app/components/SelectTrapezius';
@@ -18,6 +18,7 @@ const SelectPage = () => {
   const router = useRouter();
   const [sliderValue, setSliderValue] = useState<number>(0); // 슬라이더 값을 상태로 관리
   const [avatarImages, setAvatarImages] = useState<{ id: string; url: string }[]>([]);
+
   const stepInfo = [
     { id: 0, value: '성별', description: '성별을 선택하세요' },
     { id: 1, value: '어깨', description: '어깨너비를 선택하세요' },
@@ -30,6 +31,8 @@ const SelectPage = () => {
     fetchAvatars(avatarIds)
       .then((avatars) => setAvatarImages(avatars))
       .catch((error) => console.error(error));
+
+    console.log(avatarIds);
   }, [avatarIds]);
 
   useEffect(() => {
@@ -49,7 +52,6 @@ const SelectPage = () => {
   function handleClickPrevButton() {
     goPrevStep();
   }
-
   return (
     <div className={styles.contentContainer}>
       <header className={styles.contentHeader}>

@@ -1,0 +1,70 @@
+@use './mixin.module.scss';
+
+.resultPage {
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  //justify-content: flex-start;
+  overflow: scroll;
+  &__avatarImageContainer {
+    height: 100%;
+    background-color: mixin.$primary-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: mixin.$size-20;
+    padding: mixin.$size-20;
+
+    &__title {
+      font-size: mixin.$size-32;
+      font-weight: 800;
+      &__upper {
+        display: flex;
+        justify-content: flex-start;
+      }
+      &__lower {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+    &__image {
+      width: 174px;
+    }
+  }
+
+  &__textContainer {
+    padding: mixin.$size-20;
+    display: flex;
+    flex-direction: column;
+    gap: mixin.$size-10;
+
+    &__title {
+      font-size: mixin.$size-24;
+      margin-bottom: mixin.$size-20;
+      font-weight: 700;
+    }
+    &__subtitle {
+      font-size: mixin.$size-20;
+      margin: mixin.$size-20 0;
+      font-weight: 700;
+    }
+    &__stylingTip {
+      font-size: mixin.$size-18;
+      margin: mixin.$size-20 0;
+      font-weight: 700;
+    }
+    &__tipsBlock {
+      display: inline-block;
+      &__category {
+        font-size: mixin.$size-18;
+        font-weight: 600;
+      }
+    }
+  }
+  &__buttonContainer {
+    padding: mixin.$size-20;
+    display: flex;
+    flex-direction: column;
+    gap: mixin.$size-10;
+  }
+}
