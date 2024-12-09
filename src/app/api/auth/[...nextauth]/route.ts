@@ -57,7 +57,7 @@ const handler = NextAuth({
         ...session,
         user: {
           ...session.user,
-          id: token.sub,
+          id: token.sub, // 추가 정보 전달
         },
       };
     },

@@ -52,10 +52,16 @@ const LoginPage = () => {
           >
             <RiKakaoTalkFill size={16} color="white" />
           </div>
-          <div className={`${styles.socialLogin__button} ${styles.socialLogin__button__naver}`}>
+          <div
+            className={`${styles.socialLogin__button} ${styles.socialLogin__button__naver}`}
+            onClick={() => handleClickSocialLogin('naver')}
+          >
             <SiNaver size={12} color="white" />
           </div>
-          <div className={`${styles.socialLogin__button} ${styles.socialLogin__button__google}`}>
+          <div
+            className={`${styles.socialLogin__button} ${styles.socialLogin__button__google}`}
+            onClick={() => handleClickSocialLogin('google')}
+          >
             <FaGoogle size={12} color="white" />
           </div>
         </div>
