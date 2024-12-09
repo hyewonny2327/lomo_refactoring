@@ -12,6 +12,7 @@ export default function Home() {
   function handleClickLoginButton() {
     router.push('/login');
   }
+
   return (
     <div className={styles.contentContainer}>
       <Image className={styles.logo} src="/logo.svg" alt="LOMO logo" width={263} height={77} priority />

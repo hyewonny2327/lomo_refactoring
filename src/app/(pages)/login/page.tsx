@@ -7,6 +7,7 @@ import { SiNaver } from 'react-icons/si';
 import { FaGoogle } from 'react-icons/fa';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -22,9 +23,15 @@ const LoginPage = () => {
     console.log('로그인합니다');
     routeToSelectPage();
   }
+
+  function handleClickSocialLogin(type: string) {
+    console.log('로그인합니다', type);
+    signIn(type);
+  }
   function routeToSelectPage() {
     router.push('/select/0');
   }
+
   return (
     <div className={styles.contentContainer}>
       <div className={styles.textBox}>
@@ -39,7 +46,10 @@ const LoginPage = () => {
       <div className={styles.socialLogin__box}>
         <div className={styles.socialLogin__text}>소셜로그인 하기</div>
         <div className={styles.socialLogin__buttonBox}>
-          <div className={`${styles.socialLogin__button} ${styles.socialLogin__button__kakao}`}>
+          <div
+            className={`${styles.socialLogin__button} ${styles.socialLogin__button__kakao}`}
+            onClick={() => handleClickSocialLogin('kakao')}
+          >
             <RiKakaoTalkFill size={16} color="white" />
           </div>
           <div className={`${styles.socialLogin__button} ${styles.socialLogin__button__naver}`}>

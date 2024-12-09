@@ -5,6 +5,7 @@ import NaverProvider from 'next-auth/providers/naver';
 import KakaoProvider from 'next-auth/providers/kakao';
 // import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@/app/db';
+
 const handler = NextAuth({
   session: {
     strategy: 'jwt' as const,
@@ -45,14 +46,23 @@ const handler = NextAuth({
   ],
   pages: { signIn: '/login' },
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    async signIn() {
+      return true; // 정상적으로 로그인
+    },
+    async redirect() {
+      return '/select/0'; // 로그인 후 리디렉션할 페이지
+    },
+    session: async ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub,
+        },
+      };
+    },
     jwt: async ({ user, token }) => {
+      console.log('jwt, user', user, token);
       if (user) {
         token.sub = user.id;
       }

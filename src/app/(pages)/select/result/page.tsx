@@ -8,6 +8,7 @@ import styles from '../../../styles/resultPage.module.scss';
 import Image from 'next/image';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 const ResultPage = () => {
   const { finalAvatarId, resetStore } = useAvatarStore();
   const resultNumber = Number(finalAvatarId.join(''));
@@ -17,7 +18,7 @@ const ResultPage = () => {
   const [avatarImage, setAvatarImage] = useState({ id: '', url: '' });
   // const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
+  const { data: session, status } = useSession();
   function setResultData(result: ResultType) {
     //avatarInfo 저장
     const newAvatarInfo = { upperType: result.avatarInfo.upperType, lowerType: result.avatarInfo.lowerType };
@@ -28,6 +29,9 @@ const ResultPage = () => {
     setLowerTypeData({ ...result.resultText[1] });
   }
 
+  useEffect(() => {
+    console.log(status, session?.user?.name);
+  }, []);
   useEffect(() => {
     //결과 이미지, 텍스트 가져오기
 
