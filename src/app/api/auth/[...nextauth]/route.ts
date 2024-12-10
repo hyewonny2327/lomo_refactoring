@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import NaverProvider from 'next-auth/providers/naver';
 import KakaoProvider from 'next-auth/providers/kakao';
+import CredentialsProvider from 'next-auth/providers/credentials';
 // import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@/app/db';
 
@@ -14,22 +15,46 @@ const handler = NextAuth({
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    // CredentialsProvider({
-    //   name: 'Credentials',
-    //   credentials: {
-    //     email: { label: 'email', type: 'text' },
-    //     password: { label: 'Password', type: 'password' },
-    //   },
-    //   async authorize(credentials, req) {
-    //     const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'email', type: 'text' },
+        name: { label: 'name', type: 'text' },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.name) {
+          return null;
+        }
 
-    //     if (user) {
-    //       return user;
-    //     } else {
-    //       return null;
-    //     }
-    //   },
-    // }),
+        try {
+          // 이메일로 유저 조회
+          console.log('이메일로 유저를 조회합니다.');
+          let user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+          // 유저가 없으면 생성
+          if (!user) {
+            console.log('유저가 없어서 생성합니다.');
+            user = await prisma.user.create({
+              data: {
+                email: credentials.email,
+                name: credentials.name,
+              },
+            });
+          }
+
+          // 반환할 User 객체
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          };
+        } catch (error) {
+          console.error('Error during user authorization:', error);
+          return null;
+        }
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -47,7 +72,7 @@ const handler = NextAuth({
   pages: { signIn: '/login' },
   callbacks: {
     async signIn() {
-      return true; // 정상적으로 로그인
+      return true;
     },
     async redirect() {
       return '/select/0'; // 로그인 후 리디렉션할 페이지
@@ -57,7 +82,7 @@ const handler = NextAuth({
         ...session,
         user: {
           ...session.user,
-          id: token.sub, // 추가 정보 전달
+          id: token.sub,
         },
       };
     },
