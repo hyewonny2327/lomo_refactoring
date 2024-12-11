@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { updateAvatarNumber } from '@/app/services/client/updateAvatarNumber';
 const ResultPage = () => {
   const { finalAvatarId, resetStore } = useAvatarStore();
   const resultNumber = Number(finalAvatarId.join(''));
@@ -30,9 +31,6 @@ const ResultPage = () => {
   }
 
   useEffect(() => {
-    console.log(status, session?.user?.name);
-  }, []);
-  useEffect(() => {
     //결과 이미지, 텍스트 가져오기
 
     async function fetchResultData() {
@@ -53,9 +51,19 @@ const ResultPage = () => {
         console.error('avatar image 를 가져오지 못했습니다', error);
       }
     }
+
+    async function updateUserAvatarInfo() {
+      if (session !== null && session.user?.email && status === 'authenticated') {
+        // 이메일이 존재할 경우 avatarNumber 업데이트
+        await updateAvatarNumber(session.user.email, resultNumber);
+      } else {
+        console.error('사용자의 세션 정보가 존재하지 않아 avatar number를 업데이트 할 수 없습니다.');
+      }
+    }
     fetchResultData();
     fetchAvatarImage();
-  }, [resultNumber]);
+    updateUserAvatarInfo();
+  }, [resultNumber, session, status]);
 
   function handleClickHomeButton() {
     resetStore();
@@ -80,6 +88,7 @@ const ResultPage = () => {
             <div className={styles.resultPage__avatarImageContainer__title__upper}>잠시만 기다려주세요</div>
           ) : (
             <>
+              <div>{session?.user?.email}</div>
               <div className={styles.resultPage__avatarImageContainer__title__upper}>{avatarInfo.upperType}</div>
               <div className={styles.resultPage__avatarImageContainer__title__lower}>{avatarInfo.lowerType}</div>
             </>
