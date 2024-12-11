@@ -1,5 +1,6 @@
 import { fetchAvatarImageFromDB } from '@/app/services/prisma/fetchAvatarImageFromDB';
 
+//s3 버킷에서 가져온 아바타 이미지를 db에 저장하는 api
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
