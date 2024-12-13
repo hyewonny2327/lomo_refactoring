@@ -76,7 +76,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async redirect() {
-      return '/select/0'; // 로그인 후 리디렉션할 페이지
+      return '/';
     },
     session: async ({ session, token }) => {
       return {
@@ -88,7 +88,6 @@ export const authOptions: NextAuthOptions = {
       };
     },
     jwt: async ({ user, token }) => {
-      console.log('jwt, user', user, token);
       if (user) {
         token.sub = user.id;
       }

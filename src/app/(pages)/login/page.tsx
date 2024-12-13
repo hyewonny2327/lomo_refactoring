@@ -28,6 +28,7 @@ const LoginPage = () => {
     console.log('로그인합니다', type);
     signIn(type);
   }
+
   function routeToSelectPage() {
     router.push('/select/0');
   }

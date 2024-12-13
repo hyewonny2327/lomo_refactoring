@@ -1,6 +1,6 @@
 export async function updateAvatarNumber(userEmail: string, avatarNumber: number) {
   try {
-    const res = await fetch('/api/user', {
+    const res = await fetch('/api/user/avatarnumber', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

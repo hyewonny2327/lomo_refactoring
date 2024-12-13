@@ -1,3 +1,13 @@
+//session 타입 확장
+import { DefaultSession } from 'next-auth';
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string; // id 추가
+    } & DefaultSession['user'];
+  }
+}
 export interface AvatarNumber {
   name: string;
   numbers: number[];
