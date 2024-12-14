@@ -1,0 +1,46 @@
+@use './mixin.module.scss';
+.container {
+  @include mixin.mobile-500 {
+    width: 402px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: mixin.$size-24;
+    padding: mixin.$size-20;
+    position: relative;
+  }
+}
+
+.loading {
+  &__text {
+    font-size: mixin.$size-15;
+    font-weight: 700;
+  }
+  &__tipBox {
+    display: flex;
+    flex-direction: column;
+    background-color: #d7f6ee;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: mixin.$size-40 mixin.$size-20;
+    border-radius: mixin.$size-20;
+    margin-top: mixin.$size-20;
+    gap: mixin.$size-8;
+    &__image {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &__title {
+      font-size: mixin.$size-20;
+      font-weight: 700;
+    }
+    &__contents {
+      font-size: mixin.$size-16;
+      font-weight: 600;
+    }
+  }
+}
