@@ -4,11 +4,6 @@ import { BodyType, TextBlock } from '@/app/types/types';
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs/promises';
 
-// type UserType = {
-//   id: string;
-//   email?: string | null;
-//   password?: string | null;
-// };
 const prisma = new PrismaClient();
 async function readJSONFile(filePath: string) {
   try {

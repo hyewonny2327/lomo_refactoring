@@ -1,5 +1,6 @@
 import { fetchAvatarImagesFromDB } from '@/app/services/prisma/fetchAvatarImagesFromDB';
 
+//아바타의 id 배열을 받아 db에서 다음 아바타 사진 url을 받아오는 api
 export async function GET(req: Request) {
   try {
     // 요청 쿼리에서 ids 추출

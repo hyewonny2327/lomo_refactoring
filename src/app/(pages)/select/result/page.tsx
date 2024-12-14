@@ -8,6 +8,8 @@ import styles from '../../../styles/resultPage.module.scss';
 import Image from 'next/image';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { updateAvatarNumber } from '@/app/services/client/updateAvatarNumber';
 const ResultPage = () => {
   const { finalAvatarId, resetStore } = useAvatarStore();
   const resultNumber = Number(finalAvatarId.join(''));
@@ -17,7 +19,7 @@ const ResultPage = () => {
   const [avatarImage, setAvatarImage] = useState({ id: '', url: '' });
   // const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
+  const { data: session, status } = useSession();
   function setResultData(result: ResultType) {
     //avatarInfo 저장
     const newAvatarInfo = { upperType: result.avatarInfo.upperType, lowerType: result.avatarInfo.lowerType };
@@ -49,9 +51,19 @@ const ResultPage = () => {
         console.error('avatar image 를 가져오지 못했습니다', error);
       }
     }
+
+    async function updateUserAvatarInfo() {
+      if (session !== null && session.user?.email && status === 'authenticated') {
+        // 이메일이 존재할 경우 avatarNumber 업데이트
+        await updateAvatarNumber(session.user.email, resultNumber);
+      } else {
+        console.error('사용자의 세션 정보가 존재하지 않아 avatar number를 업데이트 할 수 없습니다.');
+      }
+    }
     fetchResultData();
     fetchAvatarImage();
-  }, [resultNumber]);
+    updateUserAvatarInfo();
+  }, [resultNumber, session, status]);
 
   function handleClickHomeButton() {
     resetStore();
@@ -85,7 +97,7 @@ const ResultPage = () => {
           {isLoading ? (
             <Image
               className={styles.resultPage__avatarImageContainer__image}
-              src={'/loadingAvatar.svg'}
+              src="/loadingAvatar.svg"
               alt="Avatar"
               layout="intrinsic"
               width={174}
