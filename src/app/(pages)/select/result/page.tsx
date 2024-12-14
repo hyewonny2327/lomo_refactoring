@@ -98,7 +98,7 @@ const ResultPage = () => {
           {isLoading ? (
             <Image
               className={styles.resultPage__avatarImageContainer__image}
-              src={'/loadingAvatar.svg'}
+              src="/loadingAvatar.svg"
               alt="Avatar"
               layout="intrinsic"
               width={174}

@@ -97,9 +97,8 @@ const useAvatarStore = create<AvatarStore>()(
         // 로컬 스토리지 초기화
         useAvatarStore.persist.clearStorage();
       },
-      setFinalAvatarId: (id: string) => {
-        const idStr = String(id);
-        const newAvatarId = idStr.split('').map(Number);
+      setFinalAvatarId: (avatarId: string) => {
+        const newAvatarId = avatarId.split('').map(Number);
         return set(() => ({
           finalAvatarId: newAvatarId,
         }));
