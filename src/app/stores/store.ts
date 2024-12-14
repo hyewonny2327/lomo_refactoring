@@ -11,7 +11,7 @@ interface AvatarStore {
   setAvatarIds: (ids: string[]) => void; // 아바타 ID 설정
   updateAvatarState: (index: number, value: number) => void; // finalAvatarId의 특정 위치 값 변경
   resetStore: () => void;
-  setFinalAvatarId: (id: string) => void;
+  setFinalAvatarId: (avatarId: number) => void;
 }
 
 const useAvatarStore = create<AvatarStore>()(
@@ -97,8 +97,8 @@ const useAvatarStore = create<AvatarStore>()(
         // 로컬 스토리지 초기화
         useAvatarStore.persist.clearStorage();
       },
-      setFinalAvatarId: (avatarId: string) => {
-        const newAvatarId = avatarId.split('').map(Number);
+      setFinalAvatarId: (avatarId: number) => {
+        const newAvatarId = avatarId.toString().split('').map(Number);
         return set(() => ({
           finalAvatarId: newAvatarId,
         }));

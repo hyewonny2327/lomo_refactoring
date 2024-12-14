@@ -36,9 +36,10 @@ export default function Home() {
           router.push('/select/0');
         }
 
-        const avatarNumber: string = response; // 정상적으로 데이터 파싱
+        const avatarNumber = response; // 정상적으로 데이터 파싱
         setFinalAvatarId(avatarNumber);
         console.log('Avatar Number:', avatarNumber);
+        router.push('/select/result');
       }
     } catch (error) {
       console.error(error);

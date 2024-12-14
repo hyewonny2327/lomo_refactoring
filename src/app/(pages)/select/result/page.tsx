@@ -88,7 +88,6 @@ const ResultPage = () => {
             <div className={styles.resultPage__avatarImageContainer__title__upper}>잠시만 기다려주세요</div>
           ) : (
             <>
-              <div>{session?.user?.email}</div>
               <div className={styles.resultPage__avatarImageContainer__title__upper}>{avatarInfo.upperType}</div>
               <div className={styles.resultPage__avatarImageContainer__title__lower}>{avatarInfo.lowerType}</div>
             </>
