@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '../styles/loading.module.scss';
+import styles from './styles/loading.module.scss';
 const Loading = () => {
   const loadingTexts = [
     '봄에는 밝은 색상의 블라우스가 딱! 화사한 핑크와 연한 베이지 조합으로, 사랑스러움이 한껏 업!',
