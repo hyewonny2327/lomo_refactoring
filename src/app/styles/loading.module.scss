@@ -1,14 +1,17 @@
 @use './mixin.module.scss';
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: mixin.$size-24;
+  padding: mixin.$size-20;
+  position: relative;
   @include mixin.mobile-500 {
     width: 402px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: mixin.$size-24;
-    padding: mixin.$size-20;
-    position: relative;
+  }
+  @include mixin.desktop-1280 {
+    width: 500px;
   }
 }
 

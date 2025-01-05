@@ -8,6 +8,7 @@ interface SelectTrapeziusProps {
 const SelectTrapezius = ({ setValue }: SelectTrapeziusProps) => {
   function handleSelectOption(type: string) {
     if (type === 'hasTrapezius') {
+      console.log('click');
       setValue(1);
     } else if (type === 'notHasTrapezius') {
       setValue(0);

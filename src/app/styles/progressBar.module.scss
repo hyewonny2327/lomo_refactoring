@@ -5,9 +5,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%; /* 진행 바 전체 너비 */
   margin: 0 auto;
   position: relative;
+
+  @include mixin.mobile-500 {
+    width: 100%;
+  }
+  @include mixin.desktop-1280 {
+    width: 348px;
+  }
 }
 
 /* 각 단계의 컨테이너 */

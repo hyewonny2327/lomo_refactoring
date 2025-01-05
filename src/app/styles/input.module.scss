@@ -1,23 +1,23 @@
 @use './mixin.module.scss';
 .inputContainer {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid mixin.$disabled-color;
+  border-radius: mixin.$size-12;
+  padding: mixin.$size-12 mixin.$size-16;
+  box-sizing: border-box;
   @include mixin.mobile-500 {
-    width: 100%;
-    background-color: #fff;
-    border: 1px solid mixin.$disabled-color;
-    border-radius: mixin.$size-12;
-    padding: mixin.$size-12 mixin.$size-16;
-    box-sizing: border-box;
   }
 }
 
 .inputBox {
+  width: 100%;
+  height: 100%;
+  font-size: mixin.$size-20;
+  border: none;
+  &:focus {
+    outline: none;
+  }
   @include mixin.mobile-500 {
-    width: 100%;
-    height: 100%;
-    font-size: mixin.$size-20;
-    border: none;
-    &:focus {
-      outline: none;
-    }
   }
 }

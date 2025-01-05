@@ -1,14 +1,5 @@
 @use './mixin.module.scss';
 .selectGender {
-  &__imageContainer {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: mixin.$size-40;
-  }
-
   &__individualImage {
     position: relative;
     display: flex;
@@ -16,6 +7,9 @@
     justify-content: center;
     align-items: center;
     gap: mixin.$size-40;
+  }
+  &__text {
+    font-size: mixin.$size-32;
   }
   &__image {
     cursor: pointer;
@@ -27,7 +21,23 @@
       transform: scale(1.1); // 크기 변화를 더 부드럽게 표현 가능
     }
   }
-  &__text {
-    font-size: mixin.$size-32;
+  @include mixin.mobile-500 {
+    &__imageContainer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: mixin.$size-40;
+    }
+  }
+  @include mixin.desktop-1280 {
+    &__imageContainer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      gap: mixin.$size-40;
+    }
   }
 }

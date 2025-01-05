@@ -70,9 +70,11 @@ const SelectPage = () => {
               <Image
                 src={avatarImages[sliderValue].url}
                 alt="LOMO logo"
-                fill
-                sizes="140px"
-                style={{ objectFit: 'none' }}
+                //fill
+                //sizes="140px"
+                width={140}
+                height={406}
+                //style={{ objectFit: 'none' }}
               ></Image>
             </div>
           )}
@@ -85,8 +87,12 @@ const SelectPage = () => {
               <Slider value={sliderValue} setValue={setSliderValue} />
             ))}
         </div>
+        <footer className={styles.buttonContainer_desktop}>
+          <Image src="/arrowButtonLeft.svg" alt="이전" width={49} height={83} onClick={handleClickPrevButton} />
+          <Image src="/arrowButtonRight.svg" alt="다음" width={49} height={83} onClick={handleClickNextButton} />
+        </footer>
       </main>
-      <footer className={styles.buttonContainer}>
+      <footer className={styles.buttonContainer_mobile}>
         <Button type="outlined" size="large" color="primary" onClick={handleClickPrevButton}>
           이전
         </Button>

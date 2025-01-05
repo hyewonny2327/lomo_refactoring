@@ -1,24 +1,27 @@
 @use './mixin.module.scss';
 .contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: mixin.$size-24;
+  padding: mixin.$size-20;
+  position: relative;
   @include mixin.mobile-500 {
     width: 402px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: mixin.$size-24;
-    padding: mixin.$size-20;
-    position: relative;
+  }
+  @include mixin.desktop-1280 {
+    width: 500px;
   }
 }
 .textBox {
-  @include mixin.mobile-500 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-    font-weight: 800;
-    font-size: mixin.$size-24;
+  font-weight: 800;
+  font-size: mixin.$size-24;
+  @include mixin.mobile-500 {
   }
 }
 .inputBox {
@@ -77,5 +80,10 @@
     position: fixed;
     bottom: mixin.$size-20;
     padding: 0 mixin.$size-20;
+  }
+  @include mixin.desktop-1280 {
+    width: 100%;
+    display: flex;
+    gap: mixin.$size-8;
   }
 }

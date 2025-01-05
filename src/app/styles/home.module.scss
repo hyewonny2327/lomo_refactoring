@@ -1,30 +1,39 @@
 @use './mixin.module.scss';
 
 .contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: mixin.$size-24;
+  padding: mixin.$size-20;
   @include mixin.mobile-500 {
     width: 402px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: mixin.$size-24;
-    padding: mixin.$size-20;
+  }
+  @include mixin.desktop-1280 {
+    min-width: 500px;
+    max-width: 800px;
   }
 }
 .textBox {
-  @include mixin.mobile-500 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: mixin.$size-16;
-    gap: mixin.$size-4;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: mixin.$size-16;
+  gap: mixin.$size-4;
 }
 .buttonBox {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: mixin.$size-24;
+  @include mixin.mobile-500 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: mixin.$size-24;
+  }
+  @include mixin.desktop-1280 {
+    display: flex;
+    width: 80%;
+    gap: mixin.$size-24;
+  }
 }
