@@ -10,7 +10,7 @@ import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { updateAvatarNumber } from '@/app/services/client/updateAvatarNumber';
-import Loading from '@/app/components/Loading';
+import Loading from '@/app/loading';
 const ResultPage = () => {
   const { finalAvatarId, resetStore } = useAvatarStore();
   const resultNumber = Number(finalAvatarId.join(''));
@@ -18,7 +18,6 @@ const ResultPage = () => {
   const [lowerTypeData, setLowerTypeData] = useState<TextBlock>();
   const [avatarInfo, setAvatarInfo] = useState({ upperType: '', lowerType: '' });
   const [avatarImage, setAvatarImage] = useState({ id: '', url: '' });
-  // const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { data: session, status } = useSession();
   function setResultData(result: ResultType) {
@@ -72,7 +71,6 @@ const ResultPage = () => {
   }
 
   const isLoading = avatarImage.url === '';
-  // const isLoading = true;
 
   return (
     <>
